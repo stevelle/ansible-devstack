@@ -18,5 +18,5 @@ Notes
 -----
 * probably should generate an openrc for the ubuntu user and source it in the ubuntu .profile
 * maybe make the local.conf file configurable or customizable because it uses a stock config file from the docs.
-
+* instance name prefix, image-id and key-id are all hardcoded into the boot script.  maybe make them paramable or from env. 
 See "http://docs.openstack.org/developer/devstack/" for more on DevStack.
