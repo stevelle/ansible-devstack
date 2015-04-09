@@ -7,9 +7,10 @@ This presumes I have ansible and python-novaclient installed and I have sourced 
 
 Usage
 -----
-.. code-block:: bash
+```bash
 $ ./boot instance-name flavor
 $ ansible-playbook devstack_setup/setup.yml -i instance-name
+```
 where ```instance-name``` and ```flavor``` are replaced by my values
 
 This should result in allowing me to ssh into my new host su down to the ubuntu user and start interacting with the DevStack installed in /opt/devstack
