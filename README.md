@@ -9,7 +9,7 @@ Usage
 -----
 .. code-block:: bash
 $ ./boot instance-name flavor
-$ ansible-playbook ansible-devstack/devstack_setup/setup.yml -i instance-name
+$ ansible-playbook devstack_setup/setup.yml -i instance-name
 where ```instance-name``` and ```flavor``` are replaced by my values
 
 This should result in allowing me to ssh into my new host su down to the ubuntu user and start interacting with the DevStack installed in /opt/devstack
