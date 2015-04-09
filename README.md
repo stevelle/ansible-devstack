@@ -4,6 +4,7 @@ Ansible playbook to build a basic DevStack instance inside of an OpenStack publi
 Requirements
 ------------
 This presumes I have ansible and python-novaclient installed and I have sourced my openrc file.
+If using this in a Rackspace public cloud then rackspace-novaclient is installed as well.
 
 Usage
 -----
