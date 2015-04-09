@@ -1,0 +1,7 @@
+---
+- name: Setup DevStack
+  user: root
+  hosts: all
+  roles:
+  - devstack
+

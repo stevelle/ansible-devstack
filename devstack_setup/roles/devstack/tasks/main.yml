@@ -1,0 +1,23 @@
+---
+
+- name: update packages and install git 
+  apt: name=git update_cache=yes
+
+- name: get devstack
+  git: repo=https://git.openstack.org/openstack-dev/devstack dest=/opt/devstack
+
+- name: configure devstack
+  copy: 
+    src: "{{item.src}}"
+    dest: "{{item.dest}}"
+  with_items:
+    - { src: "local.conf", dest: "/opt/devstack/local.conf" }
+
+- name: set permissions for devstack
+  file: path=/opt/devstack owner=ubuntu group=ubuntu recurse=yes
+  
+- name: build devstack
+  sudo: true
+  sudo_user: ubuntu
+  command: /opt/devstack/stack.sh chdir=/opt/devstack
+  
