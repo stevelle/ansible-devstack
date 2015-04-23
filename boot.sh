@@ -16,7 +16,7 @@ echo ";root: ${PASS}" >> ${STACKNAME}
 echo "verifying instance"
 IP=$(nova show stevelle-${STACKNAME} | awk '/public network/ { print $5, $6 }' | grep -E -o '([0-9]{1,3}[\.]){3}[0-9]{1,3}')
 echo $IP >> ${STACKNAME}
-STATUS=$(nova show stevelle-${STACKNAME} | awk '/status/ { print $4 }' >> ${STACKNAME})
+STATUS=$(nova show stevelle-${STACKNAME} | awk '/status/ { print $4 }')
 
 echo ";status: $STATUS" >> ${STACKNAME}
 
