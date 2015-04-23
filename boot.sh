@@ -10,7 +10,7 @@ FLAVOR=$2
 echo "nova boot stevelle-${STACKNAME} ..."
 echo ";host: stevelle-${STACKNAME}" > ${STACKNAME}
 
-PASS=$(nova boot stevelle-${STACKNAME} --flavor $2 --image e19a734c-c7e6-443a-830c-242209c4d65d --key-name sl_mac_key --poll | awk '/Pass / { print $4 }')
+PASS=$(nova boot stevelle-${STACKNAME} --flavor $2 --image 8226139f-3804-4ad6-a461-97ee034b2005 --key-name sl_mac_key --poll | awk '/Pass / { print $4 }')
 echo ";root: ${PASS}" >> ${STACKNAME}
 
 echo "verifying instance"
