@@ -1,0 +1,7 @@
+---
+- name: Setup OpenStack Ansible AIO 
+  user: root
+  hosts: all
+  roles:
+  - osad 
+
