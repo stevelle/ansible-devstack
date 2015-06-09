@@ -4,4 +4,5 @@
   hosts: all
   roles:
   - osad 
-
+  vars:
+    git_repo: "{{ osad_repo | default('https://github.com/stackforge/os-ansible-deployment') }}"

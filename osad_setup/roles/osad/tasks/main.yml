@@ -1,17 +1,30 @@
 ---
 
-- name: update packages and install git 
-  apt: name=git update_cache=yes
+- name: update and install packages
+  apt: name="{{ item }}"update_cache=yes
+  with_items:
+    - git
+    - vim
+    - tmux
+    - curl
 
-- name: install vim
-  apt: name=vim
+- name: clone OS-A-D
+  git:
+    repo: "{{ git_repo }}"
+    version: "{{ git_branch }}"
+    dest: /root/os-ansible-deployment
+    update: yes
+    force: yes
+  failed_when: false
 
-- name: get run-aio script 
-  get_url: dest=/opt/run-aio-build.sh url=https://raw.githubusercontent.com/stackforge/os-ansible-deployment/master/scripts/run-aio-build.sh
-
-- name: make script executable 
-  file: path=/opt/run-aio-build.sh mode=0744
-  
+# redundancy of env here needs further testing. should be able to remove env
+# bits from tmux command
 - name: build aio 
-  command: /opt/run-aio-build.sh
-  
+  shell: tmux new -d 'REPO_URL="{{git_repo}}" REPO_BRANCH={{git_branch}} scripts/run-aio-build.sh'
+  args:
+    chdir: /root/os-ansible-deployment
+    environment:
+      REPO_URL: "{{ git_repo }}"
+      REPO_BRANCH: "{{ git_branch }}"
+    creates: /etc/openstack_deploy
+
