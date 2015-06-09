@@ -20,6 +20,11 @@ STATUS=$(nova show stevelle-${STACKNAME} | awk '/status/ { print $4 }')
 
 echo ";status: $STATUS" >> ${STACKNAME}
 
-cat ${STACKNAME}
-
-
+if [[ ${STATUS} == "ACTIVE" ]]; then
+  sudo sed -i "/.*${STACKNAME}/d" /etc/hosts
+  sudo sed -i "/^${IP}.*/d" /etc/hosts
+  ssh-keygen -f "/home/vagrant/.ssh/known_hosts" -R ${STACKNAME}
+  echo "${IP}    ${STACKNAME}" | sudo tee -a /etc/hosts
+else
+  echo "STATUS: $STATUS"
+fi
