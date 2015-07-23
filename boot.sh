@@ -7,12 +7,13 @@ die () {
 [ "$#" -eq 2 ] || die "2 arguments required, $# provided"
 STACKNAME=$1
 FLAVOR=$2
+IMAGE="Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)"
 OUTFILE="inventory/${STACKNAME}"
 
 echo "nova boot stevelle-${STACKNAME} ..."
 echo ";host: stevelle-${STACKNAME}" > ${OUTFILE}
 
-PASS=$(nova boot stevelle-${STACKNAME} --flavor $2 --image 8226139f-3804-4ad6-a461-97ee034b2005 --key-name sl_mac_key --poll | awk '/Pass / { print $4 }')
+PASS=$(nova boot stevelle-${STACKNAME} --flavor $2 --image ${IMAGE} --key-name sl_mac_key --poll | awk '/Pass / { print $4 }')
 echo ";root: ${PASS}" >> ${OUTFILE}
 
 echo "verifying instance"
