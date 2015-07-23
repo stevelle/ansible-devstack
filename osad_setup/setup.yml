@@ -5,4 +5,5 @@
   roles:
   - osad 
   vars:
+    git_branch: "{{ osad_branch | default('master') }}"
     git_repo: "{{ osad_repo | default('https://github.com/stackforge/os-ansible-deployment') }}"
