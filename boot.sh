@@ -26,6 +26,7 @@ if [[ ${STATUS} == "ACTIVE" ]]; then
   sudo sed -i "/.*${STACKNAME}/d" /etc/hosts
   sudo sed -i "/^${IP}.*/d" /etc/hosts
   ssh-keygen -f "/home/vagrant/.ssh/known_hosts" -R ${STACKNAME}
+  ssh-keygen -f "/home/vagrant/.ssh/known_hosts" -R ${IP}
   echo "${IP}    ${STACKNAME}" | sudo tee -a /etc/hosts
 else
   echo "STATUS: $STATUS"
