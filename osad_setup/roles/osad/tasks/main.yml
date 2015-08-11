@@ -19,12 +19,11 @@
 
 # redundancy of env here needs further testing. should be able to remove env
 # bits from tmux command
-- name: build aio 
-  shell: tmux new -d 'REPO_URL="{{git_repo}}" REPO_BRANCH={{git_branch}} scripts/run-aio-build.sh'
+- name: deploy osad aio 
+  shell: tmux new -s aio-build -d 'DEPLOY_CEILOMETER=no ./scripts/bootstrap-aio.sh && ./scripts/bootstrap-ansible.sh && ./scripts/run-playbooks.sh'
   args:
-    chdir: /root/os-ansible-deployment
+    chdir: /opt/os-ansible-deployment
     environment:
-      REPO_URL: "{{ git_repo }}"
-      REPO_BRANCH: "{{ git_branch }}"
+      DEPLOY_CEILOMETER=no
     creates: /etc/openstack_deploy
 
