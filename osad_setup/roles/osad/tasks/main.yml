@@ -12,7 +12,7 @@
   git:
     repo: "{{ git_repo }}"
     version: "{{ git_branch }}"
-    dest: /root/os-ansible-deployment
+    dest: /opt/os-ansible-deployment
     update: yes
     force: yes
   failed_when: false
