@@ -24,5 +24,9 @@ echo "verifying instance"
 STATUS=$(nova show stevelle-${STACKNAME} | awk '/status/ { print $4 }')
 echo ";status: $STATUS" >> ${OUTFILE}
 
+if [ $(grep ${IP} /etc/hosts) -eq 0 ]
+  sudo sed -i "/.*${STACKNAME}/d" /etc/hosts
+  sudo sed -i "/^${IP}.*/d" /etc/hosts
+fi
 ssh-keygen -f "/home/vagrant/.ssh/known_hosts" -R ${STACKNAME}
 ssh-keygen -f "/home/vagrant/.ssh/known_hosts" -R ${IP}
