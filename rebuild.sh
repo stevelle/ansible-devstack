@@ -13,6 +13,10 @@ OUTFILE="inventory/${STACKNAME}"
 IP=$(grep -v ^\; ${OUTFILE})
 echo "IP = ${IP}"
 
+if [ ${IP} -eq "" ]; then
+  echo "No IP found for ${STACKNAME}"
+  exit 1
+fi
 echo "nova rebuild stevelle-${STACKNAME} ..."
 echo ";host: stevelle-${STACKNAME}" > ${OUTFILE}
 
@@ -21,10 +25,10 @@ echo ";root: ${PASS}" >> ${OUTFILE}
 echo $IP >> ${OUTFILE}
 
 echo "verifying instance"
-STATUS=$(nova show stevelle-${STACKNAME} | awk '/status/ { print $4 }')
+STATUS=$(nova show stevelle-${STACKNAME} 2>/dev/null | awk '/status/ { print $4 }')
 echo ";status: $STATUS" >> ${OUTFILE}
 
-if [ $(grep ${IP} /etc/hosts) -eq 0 ]
+if [ $(grep ${IP} /etc/hosts) -eq 0 ]; then
   sudo sed -i "/.*${STACKNAME}/d" /etc/hosts
   sudo sed -i "/^${IP}.*/d" /etc/hosts
 fi
