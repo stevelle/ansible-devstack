@@ -1,0 +1,9 @@
+---
+- name: Setup OpenStack Ansible AIO 
+  user: root
+  hosts: all
+  roles:
+  - osa
+  vars:
+    git_branch: "{{ osa_branch | default('master') }}"
+    git_repo: "{{ osa_repo | default('https://github.com/openstack/openstack-ansible') }}"
