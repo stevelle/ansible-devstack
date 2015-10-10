@@ -8,21 +8,21 @@
     - tmux
     - curl
 
-- name: clone OS-A-D
+- name: clone OpenStack Ansible
   git:
     repo: "{{ git_repo }}"
     version: "{{ git_branch }}"
-    dest: /opt/os-ansible-deployment
+    dest: /opt/openstack-ansible
     update: yes
     force: yes
   failed_when: false
 
 # redundancy of env here needs further testing. should be able to remove env
 # bits from tmux command
-- name: deploy osad aio 
+- name: deploy osa aio
   shell: tmux new -s aio-build -d 'DEPLOY_CEILOMETER=no ./scripts/bootstrap-aio.sh && ./scripts/bootstrap-ansible.sh && ./scripts/run-playbooks.sh'
   args:
-    chdir: /opt/os-ansible-deployment
+    chdir: /opt/openstack-ansible
     environment:
       DEPLOY_CEILOMETER=no
     creates: /etc/openstack_deploy
