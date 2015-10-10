@@ -13,9 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Setup DevStack
+- name: Setup OpenStack Ansible AIO 
   user: root
   hosts: all
   roles:
-  - devstack
-
+  - osa
+  vars:
+    git_branch: "{{ osa_branch | default('master') }}"
+    git_repo: "{{ osa_repo | default('https://github.com/openstack/openstack-ansible') }}"

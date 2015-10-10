@@ -13,9 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Setup DevStack
-  user: root
-  hosts: all
-  roles:
-  - devstack
-
+- name: restart sshd
+  command: /usr/sbin/service ssh restart

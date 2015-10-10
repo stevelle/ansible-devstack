@@ -13,9 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Setup DevStack
-  user: root
+- name: Secure instance
   hosts: all
+  user: root
   roles:
-  - devstack
-
+    - role: "secure", tags: [ "public-cloud", "security" ] }

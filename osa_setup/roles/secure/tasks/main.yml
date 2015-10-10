@@ -13,9 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Setup DevStack
-  user: root
-  hosts: all
-  roles:
-  - devstack
+- name: Install packages
+  apt: update=yes name="{{ item }}"
+  with_items:
+    - fail2ban
 
+- name: Create admin group
+  group:
+    name=admin
+
+- name: Create operator user
+  user:
+    name="{{ operator }}"
+    groups=admin
+    shell=/bin/bash
+
+- name: Revoke pw required to sudo
+  lineinfile: "dest=/etc/sudoers  regexp='^%admin' line='%admin ALL=(ALL) NOPASSWD: ALL' validate='visudo -cf %s'"
+
+- include: ssh.yml

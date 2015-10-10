@@ -1,0 +1,42 @@
+---
+# Copyright 2015, Steve Lewis <steve at-symbol stevelle period me>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: update and install packages
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - git
+    - vim
+    - tmux
+    - curl
+
+- name: clone OpenStack Ansible
+  git:
+    repo: "{{ git_repo }}"
+    version: "{{ git_branch }}"
+    dest: /opt/openstack-ansible
+    update: yes
+    force: yes
+  failed_when: false
+
+# redundancy of env here needs further testing. should be able to remove env
+# bits from tmux command
+- name: deploy osa aio
+  shell: tmux new -s aio-build -d 'DEPLOY_CEILOMETER=no ./scripts/bootstrap-aio.sh && ./scripts/bootstrap-ansible.sh && ./scripts/run-playbooks.sh'
+  args:
+    chdir: /opt/openstack-ansible
+    environment:
+      DEPLOY_CEILOMETER=no
+    creates: /etc/openstack_deploy
+
