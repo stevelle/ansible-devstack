@@ -13,7 +13,7 @@ OUTFILE="inventory/${STACKNAME}"
 echo "nova boot stevelle-${STACKNAME} ..."
 echo ";host: stevelle-${STACKNAME}" > ${OUTFILE}
 
-PASS=$(nova boot stevelle-${STACKNAME} --flavor $2 --image ${IMAGE} --key-name sl_mac_key --poll | awk '/Pass / { print $4 }')
+PASS=$(nova boot stevelle-${STACKNAME} --flavor "${2}" --image "${IMAGE}" --key-name sl_mac_key --poll | awk '/Pass / { print $4 }')
 echo ";root: ${PASS}" >> ${OUTFILE}
 
 echo "verifying instance"
