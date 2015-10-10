@@ -13,12 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Specify authorized key
-  authorized_key:
-    user="{{ operator }}"
-    key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-    manage_dir=yes
-
 - name: Secure root account
   lineinfile:
     dest=/etc/ssh/sshd_config

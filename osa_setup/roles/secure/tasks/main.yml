@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Install packages
-  apt: update=yes name="{{ item }}"
+  apt: update_cache=yes name="{{ item }}"
   with_items:
     - fail2ban
 
