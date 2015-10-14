@@ -27,6 +27,11 @@
     name="{{ operator }}"
     groups=admin
     shell=/bin/bash
+    
+- name: Install public key
+  authorized_key:
+    user: "{{ operator }}"
+    key: "{{ lookup('file', '$HOME/.ssh/id_rsa.pub') }}"
 
 - name: Revoke pw required to sudo
   lineinfile: "dest=/etc/sudoers  regexp='^%admin' line='%admin ALL=(ALL) NOPASSWD: ALL' validate='visudo -cf %s'"
