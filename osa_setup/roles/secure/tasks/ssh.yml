@@ -13,11 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Secure root account
-  lineinfile:
-    dest=/etc/ssh/sshd_config
-    regexp='^PermitRootLogin'
-    line='PermitRootLogin no'
+#- name: Secure root account
+#  lineinfile:
+#    dest=/etc/ssh/sshd_config
+#    regexp='^PermitRootLogin'
+#    line='PermitRootLogin no'
 
 - name: Forbit password auth
   lineinfile:
@@ -47,5 +47,5 @@
   lineinfile:
     dest=/etc/ssh/sshd_config
     regexp='^AllowUsers'
-    line="AllowUsers {{ operator }}"
+    line="AllowUsers root {{ operator }}"
   notify: restart sshd
